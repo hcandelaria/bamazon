@@ -53,32 +53,23 @@ const buyProduct = () =>{
       if(err) throw err;
       if(res[0].stock_quantity >= answers.quantity){
         //Holdes the update content
-        let placeholder = [
-          { stock_quantity : res[0].stock_quantity - answers.quantity },
-          { item_id : answers.item_id }
-        ];
-
-        //purchaseProduct(res[0].item_id,quantity);
-        connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?',placeholder, (err,res) =>{
-          if(err) throw err;
-          console.log(`${ res.affectedRows } product quantity updated!`);
-          //Calculate purchaseTotal
-        });
-      }else{
-        console.log(`Insufficient quantity!`);
+        let quantity = res[0].stock_quantity - answers.quantity
+        let id = answers.item_id
+        updateProducts(quantity,id);
       }
     });
   });
 };
 //Update dabase after picking a products
-const purchaseProduct = (item_id,quantity) =>{
-  let query = 'UPDATE products WHERE item_id =? SET stock_quantity = ?';
-  connection.query(query,[item_id,quantity], (err,res) =>{
+const updateProducts = (quantity,id) =>{
+  let query = 'UPDATE products SET stock_quantity = ? WHERE item_id = ?';
+  //let quantity = [{stock_quantity: parseInt(item.stock_quantity)}];
+  //let product = [{item_id : item.item_id}];
+  connection.query(query,[quantity,id], (err,res) =>{
     if(err) throw err;
     console.log(`${ res.affectedRows } product quantity updated!`);
     //Calculate purchaseTotal
   });
 };
 
-
-displayDB();
+//displayDB();
