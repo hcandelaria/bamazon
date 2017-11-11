@@ -55,21 +55,25 @@ const buyProduct = () =>{
         //Holdes the update content
         let quantity = res[0].stock_quantity - answers.quantity
         let id = answers.item_id
-        updateProducts(quantity,id);
+        let total = totalPurchased(answers.quantity,res[0].price);
+        updateProducts(quantity,id,total);
+
       }
     });
   });
 };
 //Update dabase after picking a products
-const updateProducts = (quantity,id) =>{
+const updateProducts = (quantity,id,total) =>{
   let query = 'UPDATE products SET stock_quantity = ? WHERE item_id = ?';
   //let quantity = [{stock_quantity: parseInt(item.stock_quantity)}];
   //let product = [{item_id : item.item_id}];
   connection.query(query,[quantity,id], (err,res) =>{
     if(err) throw err;
-    console.log(`${ res.affectedRows } product quantity updated!`);
-    //Calculate purchaseTotal
+    console.log(`Total of your purchases: $${total} \nThank you for your purchased!`);
+    connection.end();
   });
 };
-
-//displayDB();
+const totalPurchased = (quantity, price) =>{
+  return (quantity * price);
+}
+displayDB();
