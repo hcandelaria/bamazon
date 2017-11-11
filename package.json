@@ -1,0 +1,17 @@
+{
+  "name": "Amazon-CLI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "inquirer-chalk-pipe": "^1.1.0",
+    "mysql": "^2.15.0"
+  }
+}
